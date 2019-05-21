@@ -1,0 +1,1 @@
+jenkins http://localhost:8980/user/so/
