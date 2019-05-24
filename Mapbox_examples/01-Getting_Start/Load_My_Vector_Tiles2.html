@@ -29,27 +29,24 @@
             // https://www.mapillary.com/developer/tiles-documentation/#sequence-layer
             map.addLayer({
                 "id": "mapillary",
-                "type": "line",
+               // "type": "line",
+               "type" : "fill",
+			   "scheme":"zxy",
                 "source": {
-                    "type": "vector",
-                    "tiles":
-                 //["https://d25uarhxywzl1j.cloudfront.net/v0.1/{z}/{x}/{y}.mvt"],
-                 ["https://d25uarhxywzl1j.cloudfront.net/v0.1/{z}/{x}/{y}.mvt"], 
-                 //  ["http://192.168.1.116:8081/1523.mvt"],
-                   // ['http://a.tiles.mapbox.com/v4/mapbox.mapbox-streets-v7/14/4823/6160.mvt'],
-                    "minzoom": 6,
-                    "maxzoom": 14
+                 //   "type": "vector",
+                //     "tiles":
+                //  //["https://d25uarhxywzl1j.cloudfront.net/v0.1/{z}/{x}/{y}.mvt"],
+                //  ["http://192.168.1.230:8000/{z}/{x}/{y}.pbf"], 
+                //  //  ["http://192.168.1.116:8081/1523.mvt"],
+                "url": "http://192.168.1.230:8000/states.json"
+                //     "minzoom": 6,
+                //     "maxzoom": 14
                 },
                 "source-layer": "mapillary-sequences",
-                "layout": {
-                    "line-cap":"round",
-                    "line-join":"round"
-                },
+
                 "paint": {
-                    "line-opacity": 0.6,
-                    "line-color": "rgb(53,175,109)",
-                    "line-width": 2
-                }
+                            "fill-color": "#00ffff"
+                        }
                
             }, 'waterway-label');
         });
