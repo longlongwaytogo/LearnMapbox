@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>加载第三方矢量切片</title>
+    <meta name='viewport' contant='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.54.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.54.0/mapbox-gl.css' rel='stylesheet' />
+ 
+    <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+    </style>
+</head>
+<body>
+<div id='map'></div>
+<script>
+
+    
+    mapboxgl.accessToken =  'pk.eyJ1IjoibG9uZ2xvbmd3YXl0b2dvIiwiYSI6ImNqdnZ6OWV6cTFnY240NG9nbmxnc2k5dTkifQ.hsbNl4QUNyn46nfbztiFpw';
+    var simple = {
+        "version": 8,
+        "sources": {
+            "composite": {
+                "url": "mapbox://mapbox.mapbox-terrain-v2",
+                "type": "vector"
+            },
+            "os": {
+                "type": "vector",
+                "scheme": "wms",
+                "tiles": [
+                    //"http://localhost:8088/geoserver/gwc/service/tms/1.0.0/myspace:mylayer@EPSG:900913@pbf/{z}/{x}/{y}.pbf"
+                    "http://192.168.1.116:8080/geoserver/mvt/service/wms/1.1.0/mvt:states@EPSG:4326::90091@mvt/{z}/{x}/{y}.vector.mvt"
+                ]
+            },
+        },
+        "sprite": "your sprite",
+        "glyphs": "your glyphs",
+        "layers": [
+            {
+                "id": "background",
+                "type": "background",
+                "paint": {
+                    "background-color": "#ffffff"
+                },
+                "interactive": true
+            },
+            {
+                "id": "c",
+                "type": "fill",
+                "source": "os",
+                "source-layer": "bou2_4p",
+                "paint": {
+                    "fill-color": "#C1FFC1",
+                    "fill-opacity": 0.5
+                },
+                "interactive": true
+            },
+            {
+                "id": "mountain",
+                "type": "line",
+                "source": "os",
+                "source-layer": "m",
+                "layout": {
+                    "line-join": "round",
+                    "line-cap": "round"
+                },
+                "paint": {
+                    "line-color": "#3031ff",
+                    "line-width": {
+                        "stops": [[6,0.4], [8, 0.6], [13, 1]]
+                    },
+                    "line-dasharray": [1.5,3]
+                }
+            },
+            {
+                "id": "province",
+                "type": "symbol",
+                "source": "os",
+                "source-layer": "province",
+                "layout": {
+                    "symbol-spacing": 1000,
+                    "text-field": "{NAME}",
+                    "text-size": 15,
+                    "text-font": ["SimHei Regular"],
+                    "text-padding":2
+                },
+                "paint": {
+                    "text-color": "rgb(100,82,45)",
+                    "text-halo-color": "rgb(255,255,255)",
+                    "text-halo-width": 1,
+                },
+                "interactive": true
+            },
+        ]
+    };
+ 
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: simple,
+        zoom:3.5,
+        center:  [114.08,29.54]
+    });
+ 
+    map.addControl(new mapboxgl.NavigationControl()); /* new NavigationControl()创建NavigationControl，NavigationCongtrol包含一个缩放按钮和指南针，addControl(control,position)：添加控件，position表示位置，可以是top-left' ,  'top-right' ,  'bottom-left' , and  'bottom-right'，默认top-right */
+</script>
+ 
+</body>
+</html>
