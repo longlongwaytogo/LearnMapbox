@@ -83,7 +83,7 @@ http://localhost:8080/geoserver/web/
 [geoserver 矢量切片发布](https://www.jianshu.com/p/df45b0f6455b)
 [geoserver 矢量切片发2](https://www.jianshu.com/p/4a35e935c466)
 [Geoserver如何安装或部署最新图文教程](http://sh.qihoo.com/pc/9ade76f64d13f3a47?cota=4&tj_url=xz&sign=360_e39369d1&refer_scene=so_1)
-
+[Publishing a GeoServer Layer for use with Mapbox Styles¶](https://docs.geoserver.org/latest/en/user/styling/mbstyle/source.html)
 
 # 数据：
 [高德地图行政区域下载](https://giser.xyz/2018/04/25/20180425-GetDistrictByAMap/)
