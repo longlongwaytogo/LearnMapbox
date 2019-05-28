@@ -23,14 +23,15 @@
     用法
         $ tippecanoe -o us_states.mbtiles us_states.json -zg
 
-    还可以使用[MapTiler](https://www.maptiler.com/download/)工具生成mbTiles，界面工具，操作简单
+还可以使用[MapTiler](https://www.maptiler.com/download/)工具生成mbTiles，界面工具，操作简单
 
 ## 2. 使用 mbutil 从mbTiles中获取 bpf片 [也可以直接使用tippecanoe 导出pbf本地数据]
     MBUtiles is an utility in Rust, to generate MBTiles from tiles directories and extract tiles from MBTiles file.
 
 reference [MBUtil实现mbtiles文件和地图切片之间的格式转换](https://blog.csdn.net/weixin_34384681/article/details/88319605)
 
-## 3. 由于mapbox只能加载未压缩的pbf格式数据，但直使用tippecanoe或mbuitl生成的pbf是经过gzip压缩的数据[不执行解压缩，mapbox加载数据会报："Unimplemented type: 3" 错误]，所以需要解压缩，可以通过py脚本执行解压工作
+## 3. 解压pbf
+由于mapbox只能加载未压缩的pbf格式数据，但直使用tippecanoe或mbuitl生成的pbf是经过gzip压缩的数据[不执行解压缩，mapbox加载数据会报："Unimplemented type: 3" 错误]，所以需要解压缩，可以通过py脚本执行解压工作
 
 ```bat
     UnGzip_pbf.py 源路径[压缩pbf路径] 目标路径[解压路径] 扩展名[默认扔使用pbf格式，也可改为mvt]
@@ -48,7 +49,29 @@ reference [MBUtil实现mbtiles文件和地图切片之间的格式转换](https:
 
 ## 6. 编写mapbox代码
 参考mabox例子[Add a vector tile source](https://docs.mapbox.com/mapbox-gl-js/example/vector-source/)
-主要设置正确的切片路径
+主要设置正确的切片路径,主要代码：
+```javascript
+  map.on('load', function() {
+            map.addLayer({
+                "id": "states",
+                "type": "fill",
+                //"scheme": "zxy",
+                "source": {
+                    "type": "vector",
+                    "tiles": ["http://192.168.1.230:8000/{z}/{x}/{y}.pbf"],
+                    "minzoom": 3,
+                    "maxzoom": 13
+                },
+                "source-layer": "us_states",
+
+                "paint": {
+                    "fill-color": "#00ffff",
+                    "fill-outline-color": "#ff0000"
+                }
+            }, 'states');
+        });
+```
+
 ![](preview_states.PNG)
 
 

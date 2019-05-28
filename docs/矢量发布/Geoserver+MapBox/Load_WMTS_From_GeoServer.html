@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8' />
+    <title>Join local JSON data with vector tile geometries</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.0.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.0.0/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id='map'>
+    </div>
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoibG9uZ2xvbmd3YXl0b2dvIiwiYSI6ImNqdnZ6OWV6cTFnY240NG9nbmxnc2k5dTkifQ.hsbNl4QUNyn46nfbztiFpw';
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v9',
+            center: [-99.637496, 38.719526],
+            zoom: 4
+        });
+        map.on('load', function() {
+            map.addSource('usa_states', {
+                'type': 'vector',
+                'scheme': 'xyz',
+                'tiles': ['http://192.168.1.230:8080/geoserver/gwc/service/wmts?REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&LAYER=mapbox:states&STYLE=&TILEMATRIX=EPSG:900913:{z}&TILEMATRIXSET=EPSG:900913&FORMAT=application/x-protobuf;type=mapbox-vector&TILECOL={x}&TILEROW={y}']
+            });
+
+            map.addLayer({
+                    'id': 'states',
+                    'type': 'fill',
+                    'source': 'usa_states',
+                    'source-layer': 'states',
+                    'paint': {
+                        'fill-color': '#00ff00',
+                    }
+                },
+                'waterway-label');
+        });
+    </script>
+
+</body>
+
+</html>
