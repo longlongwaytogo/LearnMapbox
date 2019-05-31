@@ -7,10 +7,11 @@
     ![](https://oscimg.oschina.net/oscnet/509a44440f1681dab917062569081eb47a0.jpg)
     
 ### 0.2 Geojson.io 
-    一个在线的Geojson导入工具网站：[Geojson](http://www.geojson.io)
+ 一个在线的Geojson导入工具网站：
+    [Geojson](http://www.geojson.io)
 
 ### 0.3 ogr2ogr :
-     GDAL的一个实用工具，可以进行多种gis数据转换，用法：
+ GDAL的一个实用工具，可以进行多种gis数据转换，用法：
 
      ogr2ogr -f "file_format" destination_data source_data
 
@@ -25,7 +26,8 @@
 
 还可以使用[MapTiler](https://www.maptiler.com/download/)工具生成mbTiles，界面工具，操作简单
 
-## 2. 使用 mbutil 从mbTiles中获取 bpf片 [也可以直接使用tippecanoe 导出pbf本地数据]
+## 2. 生成pbf
+   使用 mbutil 从mbTiles中获取 bpf片 [也可以直接使用tippecanoe 导出pbf本地数据]
     MBUtiles is an utility in Rust, to generate MBTiles from tiles directories and extract tiles from MBTiles file.
 
 reference [MBUtil实现mbtiles文件和地图切片之间的格式转换](https://blog.csdn.net/weixin_34384681/article/details/88319605)
