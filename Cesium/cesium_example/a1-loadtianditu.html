@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        <!--user correct character set. -->
+        <meta charset = "utf-8">
+        <!--Tell IE to use the latest, best version. -->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!--Make the application on mobile take up the full browser screen and disable user scaling. -->
+        <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, minimum-scale=1,user-scalable=no">
+        <title> hello world of cesium</title>
+        <script src="../build/cesium/cesium.js" ></script>
+        <style>
+         @import url(../Build/Cesium/Widgets/widgets.css);
+         html,body, #cesiumContainer {
+             width: 100%; height: 100%; margin:0; padding:0; overflow:hidden;
+         }
+        </style>
+    </head>
+    <body>
+        <div id="cesiumContainer"></div>
+        <script>
+
+
+
+// function onload(Cesium) {
+//         //初始化viewer部件
+// 		var viewer = new Cesium.Viewer('cesiumContainer');
+//         viewer.imageryLayers.addImageryProvider(new Cesium.TiandituImageryProvider({
+//             credit : new Cesium.Credit('天地图全球影像服务     数据来源：国家地理信息公共服务平台 & 四川省测绘地理信息局'),
+//             token: URL_CONFIG.TOKEN_TIANDITU
+//         }));
+//         var imageryLayers = viewer.imageryLayers;
+//         //初始化天地图全球中文注记服务，并添加至影像图层
+//         var labelImagery = new Cesium.TiandituImageryProvider({
+//             mapStyle : Cesium.TiandituMapsStyle.CIA_C, //天地图全球中文注记服务（经纬度投影）
+//             token: URL_CONFIG.TOKEN_TIANDITU
+//         });
+//         imageryLayers.addImageryProvider(labelImagery);
+//         $('#imageryOptions').change(function(){
+//             var value = $(this).val();
+//             var baseLayer = imageryLayers.get(1);
+//             //添加新的天地图服务
+//             imageryLayers.addImageryProvider(new Cesium.TiandituImageryProvider({
+//                 mapStyle : Cesium.TiandituMapsStyle[value],
+//                 token: URL_CONFIG.TOKEN_TIANDITU
+//             }),1);
+//             // 移除之前的图层
+//             imageryLayers.remove(baseLayer);
+//         });
+           
+
+            var viewer = new Cesium.Viewer('cesiumContainer', {
+                animation: true, // 是否显示图层控件
+                baseLayerPicker: true, // 是否显示地名查找控件
+                timelie: true, // 是否显示时间线控件
+                seceModePicker: true, // 是否显示投影控件
+                navigationhelpButton: false, // 是否显示帮助信息控件
+                infoBox : true, // 是否显示点击要素之后的显示信息
+            });
+          
+       
+
+    //         // 全球影响中文注记服务                    
+            var my_layer = viewer.scene.imageryLayers.addImageryProvider(new Cesium.WebMapTileServiceImageryProvider({
+                url: "http://t0.tianditu.com/cia_w/wmts?service=wmts?tk=15206e1537ae84238c53ab5ee2414ad0&request=GetTile&version=1.0.0&LAYER=cia&tileMatrixSet=w&TileMatrix={TileMatrix}&TileRow={TileRow}&TileCol={TileCol}&style=default.jpg",
+    layer: "tdtAnnoLayer",
+    style: "default",
+    format: "image/jpeg",
+    tileMatrixSetID: "GoogleMapsCompatible",
+    show: false
+            }));
+            my_layer.alpha = 0.5;
+            //两倍亮度
+            my_layer.brightness = 2.0;
+            // var my_layer = viewer.scene.imageryLayers.addImageryProvider(
+            //     new Cesium.UrlTemplateImageryProvider({
+            //         url : 'http://my_url/{z}/{x}/{y}',
+            //         format: "image/png"
+            //     })
+            // );
+        </script>
+    </body>
+</html>
