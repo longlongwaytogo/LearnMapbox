@@ -1,0 +1,63 @@
+
+
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        <!--user correct character set. -->
+        <meta charset = "utf-8">
+        <!--Tell IE to use the latest, best version. -->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!--Make the application on mobile take up the full browser screen and disable user scaling. -->
+        <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, minimum-scale=1,user-scalable=no">
+        <title> hello world of cesium</title>
+        <script src="../build/cesium/cesium.js" ></script>
+       
+        <script src="../build/olcs/olcesium.js"></script>
+        <style>
+         @import url(../Build/Cesium/Widgets/widgets.css);
+         html,body, #cesiumContainer {
+             width: 100%; height: 100%; margin:0; padding:0; overflow:hidden;
+         }
+        </style>
+    </head>
+<body onload="init()">
+
+    <div id="map" style="width:50%;height:100%;float:left;">
+    </div>
+    <div id="map3d" style="width:50%;height:100%;float:left;position:relative;"></div>
+    
+    </body>
+    
+    
+    
+    <script>
+          function init() {
+        view = new ol.View({
+            center: ol.proj.transform([106, 30], 'EPSG:4326', 'EPSG:3857'),
+            zoom: 4
+        });
+        layers = initLayers();
+        map = new ol.Map({
+    ///        controls: initControls(),
+            layers: [new ol.layer.Tile({
+                title: "天地图地形",
+                baseLayer: true,
+                source: new ol.source.XYZ({
+                    url: 'http://t0.tianditu.com/DataServer?T=ter_w&x={x}&y={y}&l={z}'
+                }),
+                visible: true
+            })],
+            target: 'map',
+            loadTilesWhileAnimating: true,
+            view: view
+        });
+         
+    
+        ///三维
+        map3d = new olcs.OLCesium({map: map, target: 'map3d'});
+        scene = map3d.getCesiumScene();
+        map3d.setEnabled(true);
+    }
+
+    </script>
+  
